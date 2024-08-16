@@ -1,3 +1,6 @@
+import { useDrag } from 'react-dnd'
+import { useEffect } from 'react'
+
 export default function Figure({
   team,
   size,
@@ -6,18 +9,35 @@ export default function Figure({
   redFigures,
   blueFigures,
 }) {
-  const classNames = `figure ${team} ${size}`
-  function getFigure(clickedFig) {
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: 'Figure',
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }))
+
+  useEffect(() => {
+    if (isDragging) {
+      console.log(getFigure())
+      handleSelectFigure(getFigure())
+    }
+  }, [isDragging])
+
+  function getFigure() {
     return [...redFigures, ...blueFigures].filter(
-      (f) => f.id === clickedFig.id
+      (f) => f.id === figure.id
     )[0]
   }
+
+  const classNames = `figure ${team} ${size} ${
+    isDragging ? 'isDragging' : ''
+  }`
   return (
     <div
+      ref={drag}
       className={classNames}
       onClick={() => {
-        const tempFig = getFigure(figure)
-        handleSelectFigure(tempFig)
+        handleSelectFigure(getFigure())
       }}
     >
       O

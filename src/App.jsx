@@ -1,9 +1,13 @@
 import Game from './components/Game'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 function App() {
   return (
     <>
-      <Game></Game>
+      <DndProvider backend={HTML5Backend}>
+        <Game></Game>
+      </DndProvider>
     </>
   )
 }

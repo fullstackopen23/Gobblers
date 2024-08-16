@@ -1,4 +1,5 @@
 import Figure from './Figure'
+import { useDrop } from 'react-dnd'
 
 export default function Cell({
   cell,
@@ -7,10 +8,21 @@ export default function Cell({
   redFigures,
   blueFigures,
 }) {
+  const [{}, drop] = useDrop(
+    () => ({
+      accept: 'Figure',
+      drop: (item) => {
+        handleClickOnCell(cell)
+      },
+    }),
+    [cell]
+  )
+
   const lastFigureOnCell = cell.figuresOnCell.at(-1)
 
   return (
     <div
+      ref={drop}
       key={cell.id}
       className="cell"
       onClick={() => {

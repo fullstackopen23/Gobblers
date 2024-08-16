@@ -6,6 +6,16 @@ export function isMoveValid(cell, figure) {
     figure.size === 'medium'
   ) {
     return true
+  } else if (
+    lastFigureOnBoard?.size === 'small' &&
+    figure.size === 'large'
+  ) {
+    return true
+  } else if (
+    lastFigureOnBoard?.size === 'medium' &&
+    figure.size === 'large'
+  ) {
+    return true
   } else if (!lastFigureOnBoard) {
     return true
   } else {
@@ -14,9 +24,13 @@ export function isMoveValid(cell, figure) {
 }
 function getPlayableMoves(cells, figures) {
   const playableMoves = []
+
   for (let i = 0; i < cells.length; i++) {
     for (let y = 0; y < figures.length; y++) {
-      if (isMoveValid(cells[i], figures[y])) {
+      if (
+        isMoveValid(cells[i], figures[y]) &&
+        canMove(cells, figures[y])
+      ) {
         playableMoves.push({
           playableFigure: figures[y],
           playableCell: cells[i],
@@ -27,37 +41,25 @@ function getPlayableMoves(cells, figures) {
   return playableMoves
 }
 
+function canMove(cells, figure) {
+  if (figure.on) {
+    // Check if the last figure on the square's figuresOnCell matches the figure's id
+    if (cells[figure.on].figuresOnCell.at(-1)?.id === figure.id) {
+      return true
+    } else {
+      return false
+    }
+  } else {
+    return true // Default case where figure.on is falsy
+  }
+}
+
 function evalBoard(cells) {
   // Define scoring parameters
   const WIN_SCORE = 1000
-  const BLOCK_OPPONENT_SCORE = 500
-  const CENTER_BONUS = 50
-  const CORNER_BONUS = 25
+  const BLOCK_OPPONENT_SCORE = 0
 
   let score = 0
-
-  // Evaluate center control (for a 3x3 board, the center is the 4th cell)
-  const centerCell = cells[4]
-  if (centerCell.figuresOnCell.length > 0) {
-    if (centerCell.figuresOnCell.at(-1).team === 'blue') {
-      score += CENTER_BONUS
-    } else {
-      score -= CENTER_BONUS
-    }
-  }
-
-  // Evaluate corner control
-  const cornerIndices = [0, 2, 6, 8]
-  for (const i of cornerIndices) {
-    const cornerCell = cells[i]
-    if (cornerCell.figuresOnCell.length > 0) {
-      if (cornerCell.figuresOnCell.at(-1).team === 'blue') {
-        score += CORNER_BONUS
-      } else {
-        score -= CORNER_BONUS
-      }
-    }
-  }
 
   // Evaluate rows, columns, and diagonals for winning potential and blocking
   const winningLines = [
@@ -121,9 +123,9 @@ function evalBoard(cells) {
   }, 0)
   // Overall board control
   if (numberOfBlueOnBoard > numberOfRedOnBoard) {
-    score += 100
+    score += 200
   } else if (numberOfRedOnBoard > numberOfBlueOnBoard) {
-    score -= 100
+    score -= 200
   }
 
   return score
@@ -131,7 +133,6 @@ function evalBoard(cells) {
 
 export function computerPlay(redFigures, blueFigures, cells) {
   const playableMoveForBlue = getPlayableMoves(cells, blueFigures)
-  console.log(playableMoveForBlue)
   let bestMove
   let bestScore = -Infinity
   playableMoveForBlue.forEach((move) => {
@@ -164,22 +165,24 @@ export function computerPlay(redFigures, blueFigures, cells) {
       blueFigures: updatedBlueFigures,
     }
 
-    console.log(move)
-
     const score = minimax(node, 2, true, -Infinity, Infinity)
     if (score > bestScore) {
       bestScore = score
       bestMove = move
     }
   })
-  console.log(bestScore)
+  console.log(bestScore, bestMove)
   return bestMove
 }
 
 function minimax(node, depth, maximizingPlayer, alpha, beta) {
   const winner = checkWinner(node.cells)
   if (winner) {
-    return evalBoard(node.cells)
+    if (winner.winnerTeam === 'red') {
+      return -10000
+    } else {
+      return 10000
+    }
   }
   if (depth === 0) {
     return evalBoard(node.cells)
@@ -191,7 +194,6 @@ function minimax(node, depth, maximizingPlayer, alpha, beta) {
       node.cells,
       node.redFigures
     )
-    console.log(playableMovesForMin)
 
     for (const move of playableMovesForMin) {
       const updatedCells = node.cells.map((cell) => {

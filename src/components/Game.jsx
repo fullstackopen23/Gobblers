@@ -1,6 +1,6 @@
 import Figures from './Figures'
 import Board from './Board'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   isMoveValid,
   checkWinner,
@@ -27,6 +27,24 @@ export default function Game() {
       size: 'medium',
       on: null,
     },
+    {
+      id: 3,
+      team: 'red',
+      size: 'medium',
+      on: null,
+    },
+    {
+      id: 4,
+      team: 'red',
+      size: 'large',
+      on: null,
+    },
+    {
+      id: 5,
+      team: 'red',
+      size: 'large',
+      on: null,
+    },
   ]
   const initalBlueFigures = [
     {
@@ -45,6 +63,24 @@ export default function Game() {
       id: 12,
       team: 'blue',
       size: 'medium',
+      on: null,
+    },
+    {
+      id: 13,
+      team: 'blue',
+      size: 'medium',
+      on: null,
+    },
+    {
+      id: 14,
+      team: 'blue',
+      size: 'large',
+      on: null,
+    },
+    {
+      id: 15,
+      team: 'blue',
+      size: 'large',
       on: null,
     },
   ]
@@ -66,6 +102,11 @@ export default function Game() {
   const [redFigures, setRedFigures] = useState(initalRedFigures)
   const [blueFigures, setBlueFigures] = useState(initalBlueFigures)
   const [cells, setCells] = useState(initalCells)
+  useEffect(() => {
+    if (selectedFigure !== null) {
+      console.log('Selected figure updated:', selectedFigure)
+    }
+  }, [selectedFigure])
 
   function handleSelectFigure(figure) {
     if (isGameover) return
@@ -73,11 +114,13 @@ export default function Game() {
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
+      console.log(figure)
       setSelectedFigure(figure)
     }
   }
 
   function handleClickOnCell(clickedCell) {
+    console.log(selectedFigure)
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return
@@ -149,6 +192,9 @@ export default function Game() {
     setCells(updatedCells2)
     setBlueFigures(updatedBlueFigures)
     setIsRedsTurn(true)
+    if (checkWinner(updatedCells2)) {
+      handleWin()
+    }
   }
 
   function copy(val) {
