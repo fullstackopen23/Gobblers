@@ -21,47 +21,33 @@ minimax(node, 3, true, -Inf, +Inf) {
         playableForMin.forEach(move (0,2)) {
             const updatedCells = (10,1) (0,2)
             const updatedRedFigures = (0, 2)
-            const newBeta = minimax(node, 2, false, -Inf, +Inf)
+            newBeta = minimax(node, 2, false, -Inf, +Inf)
             --->
         }
 
     }
 }
 
-minimax(node, 2, false) {
+minimax(node, 2, false, -Inf, +Inf) {
     if(!maximizing) {
-        let bestScore = -Infinity
+        let newAlpha = -Infinity
         const playableMovesForMax = [...]
 
         playableForMin.forEach(move (10,0)) {
             const updatedCells = (10,0) (0,2)
             const updatedBlueFigures = (10, 0)
-            const score = minimax(node, 1, true)
+            newAlpha = minimax(node, 1, true, -Inf, +Inf) (-5)
             --->
         }
 
     }
 }
 
-minimax(node, 1, true) {
-   if(maximizing) {
-        let bestScore = Infinity
-        const playableForMin = [...]
 
-        playableForMin.forEach(move (0,1)) {
-            const updatedCells = (10,1) (0,1)
-            const updatedRedFigures = (0, 1)
-            const score = minimax(node, 0, false) (-5)
-            --->
-            bestScore = score
-        }
-
-    }
-    return bestScore (-5)
-}
-
-minimax(node, 1, true) {
-   if(depth === 0) {
+minimax(node, 1, true, -Inf, +Inf) {
+   if(depth === 1) {
     return evalBoard (-5)
    }
 }
+
+//test
