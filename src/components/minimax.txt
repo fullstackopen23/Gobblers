@@ -1,0 +1,67 @@
+const bestMove = computerPlay(redFig, blueFig, updatedCells)
+---->
+computerPlay(redFig (0,0), blueFig, updatedCells(0,0)) {
+    playableMovesForBlue = [...]
+    let bestMove = null
+    let bestScore = -Infinity
+
+    playableMovesForBlue.forEach(move (10,1) => {
+        const updatedCells = (0,0) (10,1)
+        const updatedBlueFigures = (10,1)
+        const score = minimax(node, 3, true, -Inf, +Inf)
+        --->
+    })
+}
+
+minimax(node, 3, true, -Inf, +Inf) {
+    if(maximizing) {
+        let newBeta = Infinity
+        const playableForMin = [...]
+
+        playableForMin.forEach(move (0,2)) {
+            const updatedCells = (10,1) (0,2)
+            const updatedRedFigures = (0, 2)
+            const newBeta = minimax(node, 2, false, -Inf, +Inf)
+            --->
+        }
+
+    }
+}
+
+minimax(node, 2, false) {
+    if(!maximizing) {
+        let bestScore = -Infinity
+        const playableMovesForMax = [...]
+
+        playableForMin.forEach(move (10,0)) {
+            const updatedCells = (10,0) (0,2)
+            const updatedBlueFigures = (10, 0)
+            const score = minimax(node, 1, true)
+            --->
+        }
+
+    }
+}
+
+minimax(node, 1, true) {
+   if(maximizing) {
+        let bestScore = Infinity
+        const playableForMin = [...]
+
+        playableForMin.forEach(move (0,1)) {
+            const updatedCells = (10,1) (0,1)
+            const updatedRedFigures = (0, 1)
+            const score = minimax(node, 0, false) (-5)
+            --->
+            bestScore = score
+        }
+
+    }
+    return bestScore (-5)
+}
+
+minimax(node, 1, true) {
+   if(depth === 0) {
+    return evalBoard (-5)
+   }
+}
