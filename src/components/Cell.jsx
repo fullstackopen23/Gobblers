@@ -8,18 +8,15 @@ export default function Cell({
   redFigures,
   blueFigures,
 }) {
-  const [{}, drop] = useDrop(
+  const [, drop] = useDrop(
     () => ({
-      accept: 'Figure',
-      drop: (item) => {
-        handleClickOnCell(cell)
-      },
+      accept: 'FIGURE',
+      drop: () => handleClickOnCell(cell),
     }),
-    [cell]
+    []
   )
 
   const lastFigureOnCell = cell.figuresOnCell.at(-1)
-
   return (
     <div
       ref={drop}

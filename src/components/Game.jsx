@@ -102,11 +102,6 @@ export default function Game() {
   const [redFigures, setRedFigures] = useState(initalRedFigures)
   const [blueFigures, setBlueFigures] = useState(initalBlueFigures)
   const [cells, setCells] = useState(initalCells)
-  useEffect(() => {
-    if (selectedFigure !== null) {
-      console.log('Selected figure updated:', selectedFigure)
-    }
-  }, [selectedFigure])
 
   function handleSelectFigure(figure) {
     if (isGameover) return
@@ -114,7 +109,6 @@ export default function Game() {
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
-      console.log(figure)
       setSelectedFigure(figure)
     }
   }

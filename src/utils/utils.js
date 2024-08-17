@@ -42,7 +42,7 @@ function getPlayableMoves(cells, figures) {
 }
 
 function canMove(cells, figure) {
-  if (figure.on) {
+  if (typeof figure.on === 'number') {
     // Check if the last figure on the square's figuresOnCell matches the figure's id
     if (cells[figure.on].figuresOnCell.at(-1)?.id === figure.id) {
       return true

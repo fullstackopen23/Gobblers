@@ -10,17 +10,16 @@ export default function Figure({
   blueFigures,
 }) {
   const [{ isDragging }, drag] = useDrag(() => ({
-    type: 'Figure',
+    type: 'FIGURE',
+    item: { figure },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
   }))
 
   useEffect(() => {
-    if (isDragging) {
-      console.log(getFigure())
-      handleSelectFigure(getFigure())
-    }
+    if (!isDragging) return
+    handleSelectFigure(getFigure())
   }, [isDragging])
 
   function getFigure() {
@@ -29,9 +28,9 @@ export default function Figure({
     )[0]
   }
 
-  const classNames = `figure ${team} ${size} ${
-    isDragging ? 'isDragging' : ''
-  }`
+  console
+
+  const classNames = `figure ${team} ${size}`
   return (
     <div
       ref={drag}
