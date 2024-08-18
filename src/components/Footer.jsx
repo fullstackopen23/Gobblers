@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer>
-      <div className="help">Need help?</div>
+      <div className="needHelp">Need help?</div>
     </footer>
   )
 }

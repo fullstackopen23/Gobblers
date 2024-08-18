@@ -13,7 +13,8 @@ export default function Cell({
   // adds border to the cells to make a tic-tac-toe grid
   const border = getBorder(cell.id)
   const isValidMove = cell?.isMoveValid ? 'isMoveValid' : ''
-  const classNames = `cell ${border} ${isValidMove}`
+  const isWinningCell = cell?.winningCell ? 'winningCell' : ''
+  const classNames = `cell ${border} ${isValidMove} ${isWinningCell}`
   const lastFigureOnCell = cell.figuresOnCell.at(-1)
   const [{}, drop] = useDrop(
     () => ({

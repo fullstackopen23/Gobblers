@@ -8,17 +8,30 @@ export default function Info({
     handleRestart()
   }
 
+  let isRedsTurnMessage
+  if (message.winnerMessage) {
+    isRedsTurnMessage = ''
+  } else {
+    isRedsTurnMessage = message.isRedsTurn
+      ? "It's reds turn."
+      : "It's blues turn."
+  }
+
+  let messageMessage
+  if (message.winnerMessage) {
+    messageMessage = ''
+  } else {
+    messageMessage = message.message
+  }
+
   return (
     <div className="info">
       <div className="message">
-        <p>
-          {message.isRedsTurn && !message.winnerMessage
-            ? "It's reds turn."
-            : message.winnerMessage
-            ? message.winnerMessage
-            : "It's blues turn."}
+        <p className="winnerMsg">
+          {message.winnerMessage ? message.winnerMessage : <></>}
         </p>
-        <p>{message.message}</p>
+        <p className="turnMsg">{isRedsTurnMessage}</p>
+        <p className="messageMsg">{messageMessage}</p>
       </div>
 
       <div className="top">

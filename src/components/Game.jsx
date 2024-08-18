@@ -1,6 +1,6 @@
 import Figures from './Figures'
 import Board from './Board'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {
   isMoveValid,
   checkWinner,
@@ -13,13 +13,13 @@ export default function Game() {
     {
       id: 0,
       team: 'red',
-      size: 'small',
+      size: 'large',
       on: null,
     },
     {
       id: 1,
       team: 'red',
-      size: 'small',
+      size: 'large',
       on: null,
     },
     {
@@ -37,13 +37,13 @@ export default function Game() {
     {
       id: 4,
       team: 'red',
-      size: 'large',
+      size: 'small',
       on: null,
     },
     {
       id: 5,
       team: 'red',
-      size: 'large',
+      size: 'small',
       on: null,
     },
   ]
@@ -104,6 +104,7 @@ export default function Game() {
   const [message, setMessage] = useState({
     isRedsTurn: true,
     message: selectMessage,
+    winnerMessage: null,
   })
   const [isGameover, setIsGameover] = useState(false)
   const [isRedsTurn, setIsRedsTurn] = useState(true)
@@ -113,14 +114,18 @@ export default function Game() {
   const [opponent, setOpponent] = useState('hard')
 
   function handleSelectFigure(figure) {
-    console.log(figure)
     if (isGameover) return
+    if (!isRedsTurn && opponent !== 'friend') return
     if (
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
       setSelectedFigure(figure)
-      setMessage({ isRedsTurn, message: placeMessage })
+      setMessage({
+        isRedsTurn,
+        message: placeMessage,
+        winnerMessage: null,
+      })
 
       const updatedCells = cells.map((cell) => {
         if (isMoveValid(cell, figure)) {
@@ -133,7 +138,7 @@ export default function Game() {
     }
   }
 
-  function handleClickOnCell(clickedCell, fig) {
+  function handleClickOnCell(clickedCell) {
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return
@@ -164,6 +169,7 @@ export default function Game() {
 
     if (checkWinner(updatedCells)) {
       handleWin(updatedCells)
+      return
     }
 
     isRedsTurn
@@ -171,11 +177,14 @@ export default function Game() {
       : setBlueFigures(updatedFiguresOfTeamThatPlayed)
     setCells(updatedCells)
     setSelectedFigure(null)
-    setMessage({ isRedsTurn: !isRedsTurn, message: selectMessage })
+    setMessage({
+      isRedsTurn: !isRedsTurn,
+      message: selectMessage,
+      winnerMessage: null,
+    })
     setIsRedsTurn(!isRedsTurn)
 
     if (!(opponent === 'friend')) {
-      console.log(opponent)
       setTimeout(() => {
         const bestMove = computerPlay(
           opponent,
@@ -218,7 +227,11 @@ export default function Game() {
         })
         setCells(updatedCells2)
         setBlueFigures(updatedBlueFigures)
-        setMessage({ isRedsTurn: isRedsTurn, message: selectMessage })
+        setMessage({
+          isRedsTurn: isRedsTurn,
+          message: selectMessage,
+          winnerMessage: null,
+        })
 
         setIsRedsTurn(true)
         if (checkWinner(updatedCells2)) {
@@ -242,18 +255,30 @@ export default function Game() {
     setMessage({
       isRedsTurn,
       message: selectMessage,
+      winnerMessage: null,
     })
   }
 
   function handleWin(cells) {
     setIsGameover(true)
     const winner = checkWinner(cells)
+
+    const updatedCells = cells.map((cell) => {
+      if (winner.squares.includes(cell.id)) {
+        return { ...cell, winningCell: true }
+      } else {
+        return cell
+      }
+    })
+    setCells(updatedCells)
+
     if (winner.winnerTeam === 'red') {
-      setMessage({
+      const newMes = {
         isRedsTurn,
         message: '',
         winnerMessage: 'Team red won the game!',
-      })
+      }
+      setMessage(newMes)
     } else {
       setMessage({
         isRedsTurn,
