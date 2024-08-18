@@ -1,0 +1,5 @@
+Game changes:
+- keep track of the score
+
+Design changes:
+- show winning cells

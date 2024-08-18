@@ -5,6 +5,7 @@ export default function Board({
   handleClickOnCell,
   handleSelectFigure,
   redFigures,
+  isRedsTurn,
   blueFigures,
 }) {
   return (
@@ -15,6 +16,7 @@ export default function Board({
             handleSelectFigure={handleSelectFigure}
             key={cell.id}
             cell={cell}
+            isRedsTurn={isRedsTurn}
             handleClickOnCell={handleClickOnCell}
             redFigures={redFigures}
             blueFigures={blueFigures}

@@ -1,9 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 * {
   padding: 0px;
   margin: 0px;
   box-sizing: border-box;
-  color: white;
-  background-color: black;
+  font-family: Poppins, sans-serif;
+}
+
+:root {
+  --main-bg-color: #080808;
+  --other-bg-color: #181cff;
+  --main-font-color: rgb(250, 250, 250);
+  --accent-color: #181cff;
+  --team-one-color: red;
+  --team-two-color: blue;
+  --success-color: rgba(145, 255, 145, 0.582);
+  --success-color-2: rgb(145, 255, 145);
+}
+
+html,
+body {
+  background-color: var(--main-bg-color);
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+#root {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  color: var(--main-font-color);
+  flex-direction: column;
+  align-items: center;
+  background-color: 080808;
 }
 
 /* FIGURES */
@@ -11,31 +42,184 @@
   cursor: pointer;
 }
 .figure.red {
-  color: red;
+  fill: var(--team-one-color);
 }
 .figure.blue {
-  color: blue;
+  fill: var(--team-two-color);
+}
+.figure.small {
+  width: 20px;
+  height: 20px;
 }
 .figure.medium {
-  font-size: 2rem;
+  width: 40px;
+  height: 40px;
 }
 .figure.large {
-  font-size: 3rem;
+  width: 60px;
+  height: 60px;
+}
+
+.figures {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.figures-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.figure:hover {
+  fill: var(--success-color);
+}
+.figure.markUnplayable.red:hover {
+  fill: var(--team-one-color);
+}
+.figure.markUnplayable.blue:hover {
+  fill: var(--team-two-color);
+}
+.figure.activeFigure {
+  fill: var(--success-color-2);
+  scale: 1.06;
+}
+
+.figure.markUnplayable {
+  opacity: 0.33;
 }
 
 /* BOARD */
 .board {
   display: flex;
   flex-wrap: wrap;
-  width: 300px;
+  width: 70%;
+  max-width: 450px;
 }
 .cell {
-  width: 100px;
-  height: 100px;
-  border: 1px solid rgb(255, 255, 255);
+  width: 33.3%;
+  max-width: 150px;
+  aspect-ratio: 1;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: sans-serif;
+}
+.cell.isMoveValid {
+  background-color: rgba(132, 202, 138, 0.336);
+}
+
+/* ADD BORDER TO CELLS TO CREATE TIC TAC TOE BOARD */
+.border-bottom {
+  border-bottom: 3px solid var(--main-font-color);
+}
+.border-right {
+  border-right: 3px solid var(--main-font-color);
+}
+
+/* HEADER */
+header {
+  background-color: var(--other-bg-color);
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 10px;
+  font-family: 'Poppins', sans-serif;
+}
+
+header h1 {
+  font-weight: 500;
+}
+
+/* Info */
+.info {
+  letter-spacing: 0.7px;
+  line-height: 24px;
+  width: 80%;
+  max-width: 450px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 20px;
+  white-space: pre-line;
+}
+.info .bottom,
+.info .top {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.info .message {
+  text-align: center;
+  width: 100%;
+}
+
+/* GAME */
+.game-container {
+  width: 100%;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 30px;
+}
+
+.boardFiguresContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 30px;
+}
+
+.restartBtn {
+  padding: 3px 15px;
+  border: 1px solid var(--accent-color);
+  color: var(--main-font-color);
+
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: transparent;
+  transition: all 0.2s;
+}
+
+.restartBtn:hover {
+  border: 1px solid var(--main-bg-color);
+  color: var(--main-font-color);
+  background-color: var(--accent-color);
+}
+
+select {
+  border: 1px solid var(--accent-color);
+  color: var(--main-font-color);
+  background-color: transparent;
+  border-radius: 6px;
+  transition: all 0.2s;
+  cursor: pointer;
+  padding: 3px 15px;
+}
+
+select:hover {
+  border: 1px solid var(--main-bg-color);
+  color: var(--main-font-color);
+
+  background-color: var(--accent-color);
+}
+
+/* Footer */
+
+footer {
+  padding: 15px;
+}
+
+footer .help {
+  opacity: 0.8;
+  font-size: 0.8rem;
 }

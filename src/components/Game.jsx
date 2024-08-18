@@ -1,11 +1,12 @@
 import Figures from './Figures'
 import Board from './Board'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   isMoveValid,
   checkWinner,
   computerPlay,
 } from '../utils/utils'
+import Info from './Info'
 
 export default function Game() {
   const initalRedFigures = [
@@ -95,26 +96,44 @@ export default function Game() {
     { id: 7, figuresOnCell: [] },
     { id: 8, figuresOnCell: [] },
   ]
-
+  const selectMessage =
+    'Click on a figure to select it or drag it directly on the field.'
+  const placeMessage =
+    'Place the figure on a valid field. Valid fields are highlighted.'
   const [selectedFigure, setSelectedFigure] = useState(null)
+  const [message, setMessage] = useState({
+    isRedsTurn: true,
+    message: selectMessage,
+  })
   const [isGameover, setIsGameover] = useState(false)
   const [isRedsTurn, setIsRedsTurn] = useState(true)
   const [redFigures, setRedFigures] = useState(initalRedFigures)
   const [blueFigures, setBlueFigures] = useState(initalBlueFigures)
   const [cells, setCells] = useState(initalCells)
+  const [opponent, setOpponent] = useState('hard')
 
   function handleSelectFigure(figure) {
+    console.log(figure)
     if (isGameover) return
     if (
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
       setSelectedFigure(figure)
+      setMessage({ isRedsTurn, message: placeMessage })
+
+      const updatedCells = cells.map((cell) => {
+        if (isMoveValid(cell, figure)) {
+          return { ...cell, isMoveValid: true }
+        } else {
+          return cell
+        }
+      })
+      setCells(updatedCells)
     }
   }
 
-  function handleClickOnCell(clickedCell) {
-    console.log(selectedFigure)
+  function handleClickOnCell(clickedCell, fig) {
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return
@@ -134,17 +153,17 @@ export default function Game() {
     const updatedCells = cells.map((cell) => {
       if (cell.id === clickedCell.id) {
         cell.figuresOnCell.push(selectedFigure)
-        return cell
+        return { ...cell, isMoveValid: false }
       } else if (selectedFigure?.on === cell.id) {
         cell.figuresOnCell.pop()
-        return cell
+        return { ...cell, isMoveValid: false }
       } else {
-        return cell
+        return { ...cell, isMoveValid: false }
       }
     })
 
     if (checkWinner(updatedCells)) {
-      handleWin()
+      handleWin(updatedCells)
     }
 
     isRedsTurn
@@ -152,42 +171,60 @@ export default function Game() {
       : setBlueFigures(updatedFiguresOfTeamThatPlayed)
     setCells(updatedCells)
     setSelectedFigure(null)
+    setMessage({ isRedsTurn: !isRedsTurn, message: selectMessage })
     setIsRedsTurn(!isRedsTurn)
 
-    const bestMove = computerPlay(
-      copy(updatedFiguresOfTeamThatPlayed),
-      copy(blueFigures),
-      copy(updatedCells)
-    )
-
-    const updatedBlueFigures = blueFigures.map((bf) => {
-      if (bf.id === bestMove.playableFigure.id) {
-        return { ...bf, on: bestMove.playableCell.id }
-      } else {
-        return bf
-      }
-    })
-
-    const updatedCells2 = cells.map((cell) => {
-      if (cell.id === bestMove.playableCell.id) {
-        const temp = [...cell.figuresOnCell, bestMove.playableFigure]
-        return { ...cell, figuresOnCell: temp }
-      } else if (cell.id === bestMove.playableFigure.on) {
-        const temp = cell.figuresOnCell.slice(
-          0,
-          cell.figuresOnCell.length - 1
+    if (!(opponent === 'friend')) {
+      console.log(opponent)
+      setTimeout(() => {
+        const bestMove = computerPlay(
+          opponent,
+          copy(updatedFiguresOfTeamThatPlayed),
+          copy(blueFigures),
+          copy(updatedCells)
         )
-        return { ...cell, figuresOnCell: temp }
-      } else {
-        return cell
-      }
-    })
+        const updatedBlueFigures = blueFigures.map((bf) => {
+          if (bf.id === bestMove.playableFigure.id) {
+            return { ...bf, on: bestMove.playableCell.id }
+          } else {
+            return bf
+          }
+        })
 
-    setCells(updatedCells2)
-    setBlueFigures(updatedBlueFigures)
-    setIsRedsTurn(true)
-    if (checkWinner(updatedCells2)) {
-      handleWin()
+        const updatedCells2 = cells.map((cell) => {
+          if (cell.id === bestMove.playableCell.id) {
+            const temp = [
+              ...cell.figuresOnCell,
+              bestMove.playableFigure,
+            ]
+            return {
+              ...cell,
+              figuresOnCell: temp,
+              isMoveValid: false,
+            }
+          } else if (cell.id === bestMove.playableFigure.on) {
+            const temp = cell.figuresOnCell.slice(
+              0,
+              cell.figuresOnCell.length - 1
+            )
+            return {
+              ...cell,
+              figuresOnCell: temp,
+              isMoveValid: false,
+            }
+          } else {
+            return { ...cell, isMoveValid: false }
+          }
+        })
+        setCells(updatedCells2)
+        setBlueFigures(updatedBlueFigures)
+        setMessage({ isRedsTurn: isRedsTurn, message: selectMessage })
+
+        setIsRedsTurn(true)
+        if (checkWinner(updatedCells2)) {
+          handleWin(updatedCells2)
+        }
+      }, 500)
     }
   }
 
@@ -195,34 +232,70 @@ export default function Game() {
     return JSON.parse(JSON.stringify(val))
   }
 
-  function handleWin() {
+  function handleRestart() {
+    setSelectedFigure(null)
+    setRedFigures(initalRedFigures)
+    setBlueFigures(initalBlueFigures)
+    setCells(initalCells)
+    setIsGameover(false)
+    setIsRedsTurn(true)
+    setMessage({
+      isRedsTurn,
+      message: selectMessage,
+    })
+  }
+
+  function handleWin(cells) {
     setIsGameover(true)
+    const winner = checkWinner(cells)
+    if (winner.winnerTeam === 'red') {
+      setMessage({
+        isRedsTurn,
+        message: '',
+        winnerMessage: 'Team red won the game!',
+      })
+    } else {
+      setMessage({
+        isRedsTurn,
+        message: '',
+        winnerMessage: 'Team blue won the game!',
+      })
+    }
   }
 
   return (
-    <>
-      {selectedFigure?.id}
-      <Figures
-        team={'red'}
-        handleSelectFigure={handleSelectFigure}
-        isRedsTurn={isRedsTurn}
-        redFigures={redFigures}
-        blueFigures={blueFigures}
-      ></Figures>
-      <Board
-        handleSelectFigure={handleSelectFigure}
-        cells={cells}
-        handleClickOnCell={handleClickOnCell}
-        redFigures={redFigures}
-        blueFigures={blueFigures}
-      ></Board>
-      <Figures
-        handleSelectFigure={handleSelectFigure}
-        isRedsTurn={isRedsTurn}
-        redFigures={redFigures}
-        blueFigures={blueFigures}
-        team={'blue'}
-      ></Figures>
-    </>
+    <div className="game-container">
+      <Info
+        handleRestart={handleRestart}
+        message={message}
+        setOpponent={setOpponent}
+      ></Info>
+      <div className="boardFiguresContainer">
+        <Figures
+          team={'red'}
+          selectedFigure={selectedFigure}
+          handleSelectFigure={handleSelectFigure}
+          isRedsTurn={isRedsTurn}
+          redFigures={redFigures}
+          blueFigures={blueFigures}
+        ></Figures>
+        <Board
+          handleSelectFigure={handleSelectFigure}
+          cells={cells}
+          handleClickOnCell={handleClickOnCell}
+          redFigures={redFigures}
+          blueFigures={blueFigures}
+          isRedsTurn={isRedsTurn}
+        ></Board>
+        <Figures
+          handleSelectFigure={handleSelectFigure}
+          selectedFigure={selectedFigure}
+          isRedsTurn={isRedsTurn}
+          redFigures={redFigures}
+          blueFigures={blueFigures}
+          team={'blue'}
+        ></Figures>
+      </div>
+    </div>
   )
 }

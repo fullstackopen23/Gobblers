@@ -131,7 +131,28 @@ function evalBoard(cells) {
   return score
 }
 
-export function computerPlay(redFigures, blueFigures, cells) {
+export function getBorder(id) {
+  let border
+  if (id <= 5) {
+    border = 'border-bottom'
+  }
+  if (id === 0 || id === 1) {
+    border += ' border-right'
+  } else if (id === 3 || id === 4) {
+    border += ' border-right'
+  } else if (id === 6 || id === 7) {
+    border += ' border-right'
+  }
+
+  return border
+}
+
+export function computerPlay(
+  opponent,
+  redFigures,
+  blueFigures,
+  cells
+) {
   const playableMoveForBlue = getPlayableMoves(cells, blueFigures)
   let bestMove
   let bestScore = -Infinity
@@ -164,8 +185,14 @@ export function computerPlay(redFigures, blueFigures, cells) {
       redFigures,
       blueFigures: updatedBlueFigures,
     }
-
-    const score = minimax(node, 2, true, -Infinity, Infinity)
+    let difficultyDepth = opponent === 'easy' ? 1 : 2
+    const score = minimax(
+      node,
+      difficultyDepth,
+      true,
+      -Infinity,
+      Infinity
+    )
     if (score > bestScore) {
       bestScore = score
       bestMove = move
