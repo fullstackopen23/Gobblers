@@ -54,6 +54,19 @@ function canMove(cells, figure) {
   }
 }
 
+function getWinningCells(cells) {
+  const winningLines = [
+    [0, 1, 2], // top row
+    [3, 4, 5], // middle row
+    [6, 7, 8], // bottom row
+    [0, 3, 6], // left column
+    [1, 4, 7], // middle column
+    [2, 5, 8], // right column
+    [0, 4, 8], // diagonal top-left to bottom-right
+    [2, 4, 6], // diagonal top-right to bottom-left
+  ]
+}
+
 function evalBoard(cells) {
   // Define scoring parameters
   const WIN_SCORE = 1000
@@ -129,22 +142,6 @@ function evalBoard(cells) {
   }
 
   return score
-}
-
-export function getBorder(id) {
-  let border
-  if (id <= 5) {
-    border = 'border-bottom'
-  }
-  if (id === 0 || id === 1) {
-    border += ' border-right'
-  } else if (id === 3 || id === 4) {
-    border += ' border-right'
-  } else if (id === 6 || id === 7) {
-    border += ' border-right'
-  }
-
-  return border
 }
 
 export function computerPlay(
@@ -327,6 +324,8 @@ export function checkWinner(squares) {
     [2, 4, 6],
   ]
 
+  let cellsInName
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
     if (
@@ -336,9 +335,39 @@ export function checkWinner(squares) {
       lastFigureOnCells[a].figureOnCell?.team ===
         lastFigureOnCells[c].figureOnCell?.team
     ) {
+      switch (i) {
+        case 0:
+          cellsInName = 'topH'
+          break
+        case 1:
+          cellsInName = 'midH'
+          break
+        case 2:
+          cellsInName = 'topH'
+          break
+        case 3:
+          cellsInName = 'leftV'
+          break
+        case 4:
+          cellsInName = 'midV'
+          break
+        case 5:
+          cellsInName = 'rightV'
+          break
+        case 6:
+          cellsInName = 'bottomRight'
+          break
+        case 7:
+          cellsInName = 'bottomLeft'
+          break
+        default:
+          break
+      }
+
       return {
         squares: [a, b, c],
         winnerTeam: lastFigureOnCells[a].figureOnCell?.team,
+        cellsInName,
       }
     }
   }

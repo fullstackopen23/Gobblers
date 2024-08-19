@@ -7,7 +7,7 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { useState } from 'react'
 
 function App() {
-  const [showHelp, setShowHelp] = useState(true)
+  const [showHelp, setShowHelp] = useState(false)
 
   return (
     <>
@@ -15,8 +15,8 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <Game></Game>
       </DndProvider>
-      {showHelp ? <Help></Help> : <></>}
-      <Footer></Footer>
+      {showHelp ? <Help setShowHelp={setShowHelp}></Help> : <></>}
+      <Footer setShowHelp={setShowHelp}></Footer>
     </>
   )
 }

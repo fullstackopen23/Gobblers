@@ -9,17 +9,19 @@ export default function Figures({
   blueFigures,
 }) {
   const figures = team === 'red' ? redFigures : blueFigures
-
+  const figuresOnField = figures.filter((f) => f.on)
   return (
     <div className="figures-container">
       <div className="figures">
-        {figures.map((figure) => {
+        {figures.map((figure, i) => {
           // typeof figure.on checks if figure is onBoard yet, therefore has an proper on value
           if (typeof figure.on === 'number') {
             return null
           } else {
             return (
               <Figure
+                showAnimation={figuresOnField.length === 0}
+                index={i}
                 selectedFigure={selectedFigure}
                 handleSelectFigure={handleSelectFigure}
                 figure={figure}

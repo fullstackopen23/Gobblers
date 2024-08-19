@@ -106,6 +106,7 @@ export default function Game() {
     message: selectMessage,
     winnerMessage: null,
   })
+  const [boardState, setBoardState] = useState('inital')
   const [isGameover, setIsGameover] = useState(false)
   const [isRedsTurn, setIsRedsTurn] = useState(true)
   const [redFigures, setRedFigures] = useState(initalRedFigures)
@@ -257,11 +258,14 @@ export default function Game() {
       message: selectMessage,
       winnerMessage: null,
     })
+    setBoardState('inital')
   }
 
   function handleWin(cells) {
     setIsGameover(true)
     const winner = checkWinner(cells)
+
+    setBoardState(winner.cellsInName)
 
     const updatedCells = cells.map((cell) => {
       if (winner.squares.includes(cell.id)) {
@@ -305,6 +309,7 @@ export default function Game() {
           blueFigures={blueFigures}
         ></Figures>
         <Board
+          boardState={boardState}
           handleSelectFigure={handleSelectFigure}
           cells={cells}
           handleClickOnCell={handleClickOnCell}

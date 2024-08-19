@@ -1,6 +1,6 @@
 import Figure from './Figure'
 import { useDrop } from 'react-dnd'
-import { getBorder } from '../utils/utils'
+import { motion } from 'framer-motion'
 
 export default function Cell({
   cell,
@@ -11,10 +11,9 @@ export default function Cell({
   blueFigures,
 }) {
   // adds border to the cells to make a tic-tac-toe grid
-  const border = getBorder(cell.id)
   const isValidMove = cell?.isMoveValid ? 'isMoveValid' : ''
   const isWinningCell = cell?.winningCell ? 'winningCell' : ''
-  const classNames = `cell ${border} ${isValidMove} ${isWinningCell}`
+  const classNames = `cell ${isValidMove} ${isWinningCell}`
   const lastFigureOnCell = cell.figuresOnCell.at(-1)
   const [{}, drop] = useDrop(
     () => ({
@@ -27,12 +26,12 @@ export default function Cell({
   )
   return (
     <div
-      ref={drop}
-      key={cell.id}
-      className={classNames}
       onClick={() => {
         handleClickOnCell(cell, 'tischs')
       }}
+      ref={drop}
+      key={cell.id}
+      className={classNames}
     >
       {lastFigureOnCell ? (
         <Figure

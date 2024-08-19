@@ -1,7 +1,14 @@
-export default function Footer() {
+export default function Footer({ setShowHelp }) {
   return (
     <footer>
-      <div className="needHelp">Need help?</div>
+      <div
+        className="needHelp"
+        onClick={() => {
+          setShowHelp(true)
+        }}
+      >
+        Need help?
+      </div>
     </footer>
   )
 }
