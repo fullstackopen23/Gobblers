@@ -40,7 +40,6 @@ body {
 /* FIGURES */
 .figure {
   cursor: pointer;
-  z-index: 1;
 }
 .figure.red {
   fill: var(--team-one-color);
@@ -89,7 +88,7 @@ body {
   fill: var(--success-color);
 }
 .figure.markUnplayable {
-  opacity: 0.33 !important;
+  opacity: 0.5 !important;
 }
 
 /* BOARD */
@@ -128,11 +127,15 @@ path {
 .cell.winningCell {
 }
 
+.winnerMsg {
+  font-size: 1.5rem;
+}
+
 /* HEADER */
 header {
   background-color: var(--other-bg-color);
   width: 100%;
-  padding: 20px;
+  padding: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +152,7 @@ header h1 {
 .info {
   letter-spacing: 0.7px;
   line-height: 24px;
-  width: 80%;
+  width: 90%;
   max-width: 450px;
   padding: 20px;
   display: flex;
@@ -183,7 +186,7 @@ header h1 {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 30px;
+  gap: 5px;
 }
 
 .boardFiguresContainer {
@@ -258,7 +261,8 @@ footer .help {
   border: 2px solid var(--accent-color);
   padding: 70px 50px;
   position: fixed;
-  width: 80%;
+  width: 88%;
+  max-width: 500px;
   z-index: 10;
   top: 50%;
   background-color: var(--main-bg-color);
@@ -274,4 +278,30 @@ footer .help {
   top: -10px;
   cursor: pointer;
   fill: var(--accent-color);
+}
+
+/*  MEDIA QUERIES */
+@media (min-width: 700px) {
+  body {
+  }
+  header {
+    padding: 30px;
+  }
+  .game-container {
+    gap: 30px;
+  }
+  .info {
+    gap: 50px;
+  }
+  #root {
+    gap: 30px;
+  }
+  .board {
+    display: grid;
+    box-sizing: border-box;
+    position: relative;
+    aspect-ratio: 1;
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
+  }
 }

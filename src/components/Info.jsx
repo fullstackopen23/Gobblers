@@ -26,14 +26,6 @@ export default function Info({
 
   return (
     <div className="info">
-      <div className="message">
-        <p className="winnerMsg">
-          {message.winnerMessage ? message.winnerMessage : <></>}
-        </p>
-        <p className="turnMsg">{isRedsTurnMessage}</p>
-        <p className="messageMsg">{messageMessage}</p>
-      </div>
-
       <div className="top">
         <select
           onChange={handleChange}
@@ -47,6 +39,13 @@ export default function Info({
         <button className="restartBtn" onClick={handleRestart}>
           Restart
         </button>
+      </div>
+      <div className="message">
+        <p className="winnerMsg">
+          {message.winnerMessage ? message.winnerMessage : <></>}
+        </p>
+        <p className="turnMsg">{isRedsTurnMessage}</p>
+        <p className="messageMsg">{messageMessage}</p>
       </div>
     </div>
   )

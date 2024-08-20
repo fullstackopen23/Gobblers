@@ -15,7 +15,11 @@ function App() {
       <DndProvider backend={HTML5Backend}>
         <Game></Game>
       </DndProvider>
-      {showHelp ? <Help setShowHelp={setShowHelp}></Help> : <></>}
+      {showHelp ? (
+        <Help showHelp={showHelp} setShowHelp={setShowHelp}></Help>
+      ) : (
+        <></>
+      )}
       <Footer setShowHelp={setShowHelp}></Footer>
     </>
   )

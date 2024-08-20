@@ -121,6 +121,8 @@ export default function Game() {
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
+      console.log(figure)
+
       setSelectedFigure(figure)
       setMessage({
         isRedsTurn,
@@ -139,7 +141,7 @@ export default function Game() {
     }
   }
 
-  function handleClickOnCell(clickedCell) {
+  function handleClickOnCell(clickedCell, fig) {
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return

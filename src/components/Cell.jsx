@@ -19,7 +19,7 @@ export default function Cell({
     () => ({
       accept: 'FIGURE',
       drop: (item) => {
-        handleClickOnCell(cell, item.figure)
+        handleClickOnCell(cell)
       },
     }),
     []
@@ -27,7 +27,7 @@ export default function Cell({
   return (
     <div
       onClick={() => {
-        handleClickOnCell(cell, 'tischs')
+        handleClickOnCell(cell)
       }}
       ref={drop}
       key={cell.id}
