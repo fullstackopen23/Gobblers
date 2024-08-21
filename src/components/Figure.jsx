@@ -17,7 +17,7 @@ export default function Figure({
   let variants
   variants = showAnimation
     ? (variants = {
-        hidden: { opacity: 0, translateX: -50 },
+        hidden: { opacity: 0, translateX: team === 'red' ? -50 : 50 },
         visible: { opacity: 1, translateX: 0 },
       })
     : {
@@ -35,7 +35,8 @@ export default function Figure({
 
   useEffect(() => {
     if (isDragging) {
-      handleSelectFigure(figure)
+      console.log('starts dragging the figure', getFigure())
+      handleSelectFigure(getFigure())
     }
   }, [isDragging])
 
@@ -77,6 +78,9 @@ export default function Figure({
     >
       <motion.svg
         className="figureSvg"
+        onContextMenu={(e) => {
+          e.preventDefault()
+        }}
         whileTap={{ scale: 0.8 }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 -960 960 960"

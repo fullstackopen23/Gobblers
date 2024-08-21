@@ -8,9 +8,9 @@ export default function Cell({
   handleSelectFigure,
   redFigures,
   isRedsTurn,
+  selectedFigure,
   blueFigures,
 }) {
-  // adds border to the cells to make a tic-tac-toe grid
   const isValidMove = cell?.isMoveValid ? 'isMoveValid' : ''
   const isWinningCell = cell?.winningCell ? 'winningCell' : ''
   const classNames = `cell ${isValidMove} ${isWinningCell}`
@@ -18,16 +18,19 @@ export default function Cell({
   const [{}, drop] = useDrop(
     () => ({
       accept: 'FIGURE',
-      drop: (item) => {
+      drop: () => {
         handleClickOnCell(cell)
       },
     }),
-    []
+    [selectedFigure]
   )
   return (
     <div
       onClick={() => {
         handleClickOnCell(cell)
+      }}
+      onContextMenu={(e) => {
+        e.preventDefault()
       }}
       ref={drop}
       key={cell.id}

@@ -33,7 +33,7 @@ export default function Info({
           id="opponent-seelct"
         >
           <option value="hard">Hard</option>
-          <option value="easy">Easy</option>
+          <option value="medium">Medium</option>
           <option value="friend">Play with a friend</option>
         </select>
         <button className="restartBtn" onClick={handleRestart}>

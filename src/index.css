@@ -170,8 +170,12 @@ header h1 {
 
 .info .message {
   text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 5rem;
+  flex-direction: column;
 }
 .info .messageMsg {
 }
@@ -195,6 +199,10 @@ header h1 {
   align-items: center;
   width: 100%;
   gap: 30px;
+}
+
+.figureSvg:focus {
+  outline: none;
 }
 
 .restartBtn {
@@ -222,6 +230,10 @@ select {
   transition: all 0.2s;
   cursor: pointer;
   padding: 3px 15px;
+}
+
+select * {
+  background-color: var(--main-bg-color);
 }
 
 select:hover {
@@ -282,19 +294,12 @@ footer .help {
 
 /*  MEDIA QUERIES */
 @media (min-width: 700px) {
-  body {
-  }
-  header {
-    padding: 30px;
-  }
   .game-container {
-    gap: 30px;
+    gap: 0px;
   }
-  .info {
-    gap: 50px;
-  }
+
   #root {
-    gap: 30px;
+    gap: 10px;
   }
   .board {
     display: grid;

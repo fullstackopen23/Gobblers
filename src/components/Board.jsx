@@ -10,6 +10,7 @@ export default function Board({
   redFigures,
   isRedsTurn,
   blueFigures,
+  selectedFigure,
 }) {
   const boardStates = {
     inital: (
@@ -420,6 +421,7 @@ export default function Board({
       {cells.map((cell) => {
         return (
           <Cell
+            selectedFigure={selectedFigure}
             handleSelectFigure={handleSelectFigure}
             key={cell.id}
             cell={cell}

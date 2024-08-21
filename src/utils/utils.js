@@ -182,7 +182,7 @@ export function computerPlay(
       redFigures,
       blueFigures: updatedBlueFigures,
     }
-    let difficultyDepth = opponent === 'easy' ? 1 : 2
+    let difficultyDepth = opponent === 'medium' ? 1 : 2
     const score = minimax(
       node,
       difficultyDepth,

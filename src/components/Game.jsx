@@ -1,6 +1,6 @@
 import Figures from './Figures'
 import Board from './Board'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import {
   isMoveValid,
   checkWinner,
@@ -121,9 +121,11 @@ export default function Game() {
       (isRedsTurn && figure.team === 'red') ||
       (!isRedsTurn && figure.team === 'blue')
     ) {
-      console.log(figure)
+      setSelectedFigure((prevFigure) => {
+        console.log('Previous Figure:', prevFigure)
+        return figure // or any logic you need
+      })
 
-      setSelectedFigure(figure)
       setMessage({
         isRedsTurn,
         message: placeMessage,
@@ -141,7 +143,8 @@ export default function Game() {
     }
   }
 
-  function handleClickOnCell(clickedCell, fig) {
+  function handleClickOnCell(clickedCell) {
+    console.log(selectedFigure)
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return
@@ -271,7 +274,7 @@ export default function Game() {
 
     const updatedCells = cells.map((cell) => {
       if (winner.squares.includes(cell.id)) {
-        return { ...cell, winningCell: true }
+        return { ...cell, isMoveValid: false }
       } else {
         return cell
       }
@@ -316,6 +319,7 @@ export default function Game() {
           cells={cells}
           handleClickOnCell={handleClickOnCell}
           redFigures={redFigures}
+          selectedFigure={selectedFigure}
           blueFigures={blueFigures}
           isRedsTurn={isRedsTurn}
         ></Board>
