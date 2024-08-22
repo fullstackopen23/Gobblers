@@ -1,6 +1,7 @@
 import { useDrag } from 'react-dnd'
 import { useEffect, useState } from 'react'
 import { motion, animate } from 'framer-motion'
+import { DragPreviewImage } from 'react-dnd'
 
 export default function Figure({
   team,
@@ -25,7 +26,7 @@ export default function Figure({
         visible: {},
       }
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: 'FIGURE',
     item: { figure },
     collect: (monitor) => ({
@@ -62,7 +63,6 @@ export default function Figure({
   } else {
     markUnplayable = ''
   }
-
   const classNames = `figure ${team} ${size} ${activeFigure} ${markUnplayable}`
   return (
     <motion.div
@@ -76,9 +76,11 @@ export default function Figure({
         handleSelectFigure(getFigure())
       }}
     >
+      <DragPreviewImage connect={preview}></DragPreviewImage>
       <motion.svg
         className="figureSvg"
         onContextMenu={(e) => {
+          console.log('a')
           e.preventDefault()
         }}
         whileTap={{ scale: 0.8 }}

@@ -39,7 +39,7 @@ body {
 
 /* FIGURES */
 .figure {
-  cursor: pointer;
+  cursor: move;
 }
 .figure.red {
   fill: var(--team-one-color);
