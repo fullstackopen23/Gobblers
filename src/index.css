@@ -17,6 +17,28 @@
   --success-color-2: rgb(145, 255, 145);
 }
 
+.item-list__item {
+}
+
+.item-list__item.small {
+  font-size: 1.25rem;
+}
+
+.item-list__item.medium {
+  font-size: 2.5rem;
+}
+
+.item-list__item.large {
+  font-size: 3.75rem;
+}
+
+.item-list__item.red {
+  color: var(--team-one-color);
+}
+.item-list__item.blue {
+  color: var(--team-two-color);
+}
+
 html,
 body {
   background-color: var(--main-bg-color);

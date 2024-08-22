@@ -1,7 +1,6 @@
 import { useDrag } from 'react-dnd'
 import { useEffect, useState } from 'react'
 import { motion, animate } from 'framer-motion'
-import { DragPreviewImage } from 'react-dnd'
 
 export default function Figure({
   team,
@@ -32,11 +31,13 @@ export default function Figure({
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
     }),
+    preview: null,
   }))
 
   useEffect(() => {
     if (isDragging) {
       console.log('starts dragging the figure', getFigure())
+      preview(null)
       handleSelectFigure(getFigure())
     }
   }, [isDragging])
@@ -76,7 +77,6 @@ export default function Figure({
         handleSelectFigure(getFigure())
       }}
     >
-      <DragPreviewImage connect={preview}></DragPreviewImage>
       <motion.svg
         className="figureSvg"
         onContextMenu={(e) => {

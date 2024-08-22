@@ -5,7 +5,21 @@ import { StrictMode } from 'react'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import { TouchBackend } from 'react-dnd-touch-backend'
-import { useState } from 'react'
+import { usePreview } from 'react-dnd-preview'
+
+const MyPreview = () => {
+  const preview = usePreview()
+  if (!preview.display) {
+    return null
+  }
+  const { itemType, item, style } = preview
+  const classNames = `item-list__item ${item.figure.size} ${item.figure.team}`
+  return (
+    <div className={classNames} style={style}>
+      O
+    </div>
+  )
+}
 
 const mobileCheck = () => {
   const userAgent =
@@ -26,6 +40,7 @@ createRoot(document.getElementById('root')).render(
     <DndProvider
       backend={mobileCheck() ? TouchBackend : HTML5Backend}
     >
+      {mobileCheck() ? <MyPreview></MyPreview> : null}
       <App />
     </DndProvider>
   </StrictMode>
