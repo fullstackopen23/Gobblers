@@ -116,8 +116,8 @@ body {
   box-sizing: border-box;
   position: relative;
   aspect-ratio: 1;
-  grid-template-rows: repeat(3, 80px);
-  grid-template-columns: repeat(3, 80px);
+  grid-template-rows: repeat(3, 5rem);
+  grid-template-columns: repeat(3, 5rem);
 }
 
 .cell {
@@ -311,8 +311,12 @@ footer .help {
   fill: var(--accent-color);
 }
 
-/*  MEDIA QUERIES */
-@media (min-width: 700px) {
+/* 
+  ##Device = Desktops
+  ##Screen = 1281px to higher resolution desktops
+*/
+
+@media (min-width: 1281px) {
   .game-container {
     gap: 0px;
   }
@@ -325,8 +329,8 @@ footer .help {
     box-sizing: border-box;
     position: relative;
     aspect-ratio: 1;
-    grid-template-rows: repeat(3, 100px);
-    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 6.25rem);
+    grid-template-columns: repeat(3, 6.25rem);
   }
   .game-container {
     justify-content: flex-start;
