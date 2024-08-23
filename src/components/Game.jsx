@@ -116,6 +116,11 @@ export default function Game() {
 
   function handleSelectFigure(figure) {
     if (isGameover) return
+    if (
+      (isRedsTurn && figure.team === 'blue') ||
+      (!isRedsTurn && figure.team === 'red')
+    )
+      setSelectedFigure(null)
     if (!isRedsTurn && opponent !== 'friend') return
     if (
       (isRedsTurn && figure.team === 'red') ||
