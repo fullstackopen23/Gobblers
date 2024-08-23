@@ -176,22 +176,6 @@ export default function Game() {
       }
     })
 
-    const updatedCellsBeforePlacing = cells.map((cell) => {
-      if (selectedFigure?.on === cell.id) {
-        const newFiguresOnCell = cell.figuresOnCell.slice(-1)
-        console.log(newFiguresOnCell)
-        return {
-          ...cell,
-          figuresOnCell: newFiguresOnCell,
-          isMoveValid: false,
-        }
-      } else {
-        return { ...cell, isMoveValid: false }
-      }
-    })
-
-    console.log(updatedCellsBeforePlacing, updatedCells)
-
     if (checkWinner(updatedCells)) {
       handleWin(updatedCells)
       return
