@@ -148,14 +148,14 @@ export default function Board({
       </g>
     ),
     bottomH: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -163,7 +163,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -171,14 +171,14 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M0 378L450 378"
           stroke="black"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -186,19 +186,19 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),
     bottomLeft: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -206,7 +206,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -214,14 +214,14 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M48 401.553L401.553 48"
           stroke="black"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -229,19 +229,19 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),
     bottomRight: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -249,7 +249,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -257,14 +257,14 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M48.4466 48L402 401.553"
           stroke="black"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -272,19 +272,19 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),
     leftV: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -292,7 +292,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -300,14 +300,14 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M75 450V0"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -315,19 +315,19 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),
     midV: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -335,7 +335,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -343,14 +343,14 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M225 450V0"
           stroke="black"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -358,19 +358,19 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),
     rightV: (
-      <g clip-path="url(#clip0_1_2)">
+      <g clipPath="url(#clip0_1_2)">
         <line
           y1="-5"
           x2="450"
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 145 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -378,7 +378,7 @@ export default function Board({
           y2="-5"
           transform="matrix(-3.75549e-08 -1 -1 5.08772e-08 295 450)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <line
           y1="-5"
@@ -386,12 +386,12 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 145)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
         <motion.path
           d="M377 450V0"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
           initial={{ pathLength: 0 }}
           animate={{ pathLength: 1 }}
         />
@@ -401,7 +401,7 @@ export default function Board({
           y2="-5"
           transform="matrix(1 -3.75549e-08 -5.08772e-08 -1 0 295)"
           stroke="black"
-          stroke-width="10"
+          strokeWidth="10"
         />
       </g>
     ),

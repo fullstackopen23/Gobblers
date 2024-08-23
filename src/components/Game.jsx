@@ -122,7 +122,6 @@ export default function Game() {
       (!isRedsTurn && figure.team === 'blue')
     ) {
       setSelectedFigure((prevFigure) => {
-        console.log('Previous Figure:', prevFigure)
         return figure // or any logic you need
       })
 
@@ -144,7 +143,6 @@ export default function Game() {
   }
 
   function handleClickOnCell(clickedCell) {
-    console.log(selectedFigure)
     if (isGameover) return
     if (!selectedFigure) return
     if (!isMoveValid(clickedCell, selectedFigure)) return
@@ -172,6 +170,22 @@ export default function Game() {
         return { ...cell, isMoveValid: false }
       }
     })
+
+    const updatedCellsBeforePlacing = cells.map((cell) => {
+      if (selectedFigure?.on === cell.id) {
+        const newFiguresOnCell = cell.figuresOnCell.slice(-1)
+        console.log(newFiguresOnCell)
+        return {
+          ...cell,
+          figuresOnCell: newFiguresOnCell,
+          isMoveValid: false,
+        }
+      } else {
+        return { ...cell, isMoveValid: false }
+      }
+    })
+
+    console.log(updatedCellsBeforePlacing, updatedCells)
 
     if (checkWinner(updatedCells)) {
       handleWin(updatedCells)
@@ -274,7 +288,7 @@ export default function Game() {
 
     const updatedCells = cells.map((cell) => {
       if (winner.squares.includes(cell.id)) {
-        return { ...cell, isMoveValid: false }
+        return { ...cell, isMoveValid: false, winningCell: true }
       } else {
         return cell
       }
@@ -298,40 +312,42 @@ export default function Game() {
   }
 
   return (
-    <div className="game-container">
+    <>
       <Info
         handleRestart={handleRestart}
         message={message}
         setOpponent={setOpponent}
       ></Info>
-      <div className="boardFiguresContainer">
-        <Figures
-          team={'red'}
-          selectedFigure={selectedFigure}
-          handleSelectFigure={handleSelectFigure}
-          isRedsTurn={isRedsTurn}
-          redFigures={redFigures}
-          blueFigures={blueFigures}
-        ></Figures>
-        <Board
-          boardState={boardState}
-          handleSelectFigure={handleSelectFigure}
-          cells={cells}
-          handleClickOnCell={handleClickOnCell}
-          redFigures={redFigures}
-          selectedFigure={selectedFigure}
-          blueFigures={blueFigures}
-          isRedsTurn={isRedsTurn}
-        ></Board>
-        <Figures
-          handleSelectFigure={handleSelectFigure}
-          selectedFigure={selectedFigure}
-          isRedsTurn={isRedsTurn}
-          redFigures={redFigures}
-          blueFigures={blueFigures}
-          team={'blue'}
-        ></Figures>
+      <div className="game-container">
+        <div className="boardFiguresContainer">
+          <Figures
+            team={'red'}
+            selectedFigure={selectedFigure}
+            handleSelectFigure={handleSelectFigure}
+            isRedsTurn={isRedsTurn}
+            redFigures={redFigures}
+            blueFigures={blueFigures}
+          ></Figures>
+          <Board
+            boardState={boardState}
+            handleSelectFigure={handleSelectFigure}
+            cells={cells}
+            handleClickOnCell={handleClickOnCell}
+            redFigures={redFigures}
+            selectedFigure={selectedFigure}
+            blueFigures={blueFigures}
+            isRedsTurn={isRedsTurn}
+          ></Board>
+          <Figures
+            handleSelectFigure={handleSelectFigure}
+            selectedFigure={selectedFigure}
+            isRedsTurn={isRedsTurn}
+            redFigures={redFigures}
+            blueFigures={blueFigures}
+            team={'blue'}
+          ></Figures>
+        </div>
       </div>
-    </div>
+    </>
   )
 }

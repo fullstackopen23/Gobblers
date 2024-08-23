@@ -58,7 +58,9 @@ export default function Help({ showHelp, setShowHelp }) {
             </svg>
             <h2>How to play</h2>
             <br />
-            <p>Gobblet Gobblers is a turn based game for 2.</p>
+            <p>
+              Gobblet Gobblers is a turn based game for 2 players.
+            </p>
             <br />
             <p>
               It plays like the game tic-tac-toe but with a twist!

@@ -36,7 +36,6 @@ export default function Figure({
 
   useEffect(() => {
     if (isDragging) {
-      console.log('starts dragging the figure', getFigure())
       preview(null)
       handleSelectFigure(getFigure())
     }
