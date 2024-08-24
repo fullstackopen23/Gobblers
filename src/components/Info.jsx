@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 export default function Info({
   message,
   setOpponent,
@@ -41,9 +42,17 @@ export default function Info({
         </button>
       </div>
       <div className="message">
-        <p className="winnerMsg">
-          {message.winnerMessage ? message.winnerMessage : <></>}
-        </p>
+        {message.winnerMessage ? (
+          <motion.p
+            initial={{ opacity: 0, translateY: -100 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            className="winnerMsg"
+          >
+            {message.winnerMessage}
+          </motion.p>
+        ) : (
+          <></>
+        )}
         <p className="turnMsg">{isRedsTurnMessage}</p>
         <p className="messageMsg">{messageMessage}</p>
       </div>

@@ -293,7 +293,9 @@ function minimax(node, depth, maximizingPlayer, alpha, beta) {
   }
 }
 
-export function checkWinner(squares) {
+export function checkWinner(squares, isRedsTurn) {
+  let winners = []
+
   const lastFigureOnCells = squares.map((square) => {
     return {
       figureOnCell: square.figuresOnCell.at(-1),
@@ -311,8 +313,6 @@ export function checkWinner(squares) {
     [2, 4, 6],
   ]
 
-  let cellsInName
-
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i]
     if (
@@ -322,41 +322,47 @@ export function checkWinner(squares) {
       lastFigureOnCells[a].figureOnCell?.team ===
         lastFigureOnCells[c].figureOnCell?.team
     ) {
-      switch (i) {
-        case 0:
-          cellsInName = 'topH'
-          break
-        case 1:
-          cellsInName = 'midH'
-          break
-        case 2:
-          cellsInName = 'topH'
-          break
-        case 3:
-          cellsInName = 'leftV'
-          break
-        case 4:
-          cellsInName = 'midV'
-          break
-        case 5:
-          cellsInName = 'rightV'
-          break
-        case 6:
-          cellsInName = 'bottomRight'
-          break
-        case 7:
-          cellsInName = 'bottomLeft'
-          break
-        default:
-          break
+      let cellsInName
+      if (a === 0 && b === 1 && c === 2) {
+        cellsInName = 'topH'
+      } else if (a === 3 && b === 4 && c === 5) {
+        cellsInName = 'midH'
+      } else if (a === 6 && b === 7 && c === 8) {
+        cellsInName = 'bottomH'
+      } else if (a === 0 && b === 3 && c === 6) {
+        cellsInName = 'leftV'
+      } else if (a === 1 && b === 4 && c === 7) {
+        cellsInName = 'midV'
+      } else if (a === 2 && b === 5 && c === 8) {
+        cellsInName = 'rightV'
+      } else if (a === 0 && b === 4 && c === 8) {
+        cellsInName = 'bottomRight'
+      } else if (a === 2 && b === 4 && c === 6) {
+        cellsInName = 'bottomLeft'
+      } else {
+        cellsInName = '' // Default case
       }
+      console.log(cellsInName)
 
-      return {
+      winners.push({
         squares: [a, b, c],
         winnerTeam: lastFigureOnCells[a].figureOnCell?.team,
         cellsInName,
-      }
+      })
     }
+  }
+
+  for (let y = 0; y < winners.length; y++) {
+    if (winners[y].winnerTeam === 'red' && !isRedsTurn) {
+      return winners[y]
+    } else if (winners[y].winnerTeam === 'blue' && isRedsTurn) {
+      return winners[y]
+    }
+  }
+
+  if (winners.length > 0) {
+    console.log(winners)
+    return winners[0]
   }
   return null
 }

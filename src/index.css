@@ -116,8 +116,8 @@ body {
   box-sizing: border-box;
   position: relative;
   aspect-ratio: 1;
-  grid-template-rows: repeat(3, 5rem);
-  grid-template-columns: repeat(3, 5rem);
+  grid-template-rows: repeat(3, 80px);
+  grid-template-columns: repeat(3, 80px);
 }
 
 .cell {
@@ -147,8 +147,20 @@ path {
   background-color: var(--success-color);
 }
 
+#restartAfterWinBtn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
 .winnerMsg {
+  border: 1px solid var(--accent-color);
   font-size: 1.5rem;
+  border-radius: 10px;
+  width: 100%;
+  padding: 2rem;
 }
 
 /* HEADER */
@@ -311,28 +323,40 @@ footer .help {
   fill: var(--accent-color);
 }
 
-/* 
-  ##Device = Desktops
-  ##Screen = 1281px to higher resolution desktops
-*/
-
 @media (min-width: 1281px) {
   .game-container {
     gap: 0px;
   }
 
-  #root {
-    gap: 10px;
-  }
   .board {
     display: grid;
     box-sizing: border-box;
     position: relative;
     aspect-ratio: 1;
-    grid-template-rows: repeat(3, 6.25rem);
-    grid-template-columns: repeat(3, 6.25rem);
+    grid-template-rows: repeat(3, 100px);
+    grid-template-columns: repeat(3, 100px);
   }
   .game-container {
     justify-content: flex-start;
+  }
+}
+
+@media (max-height: 700px) and (min-width: 1000px) {
+  .game-container {
+    justify-content: flex-start;
+  }
+  #root {
+    gap: 10px;
+  }
+
+  .board {
+    grid-template-rows: repeat(3, 80px);
+    grid-template-columns: repeat(3, 80px);
+  }
+
+  .boardFiguresContainer {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 }

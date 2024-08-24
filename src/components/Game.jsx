@@ -176,7 +176,7 @@ export default function Game() {
       }
     })
 
-    if (checkWinner(updatedCells)) {
+    if (checkWinner(updatedCells, isRedsTurn)) {
       handleWin(updatedCells)
       return
     }
@@ -243,7 +243,7 @@ export default function Game() {
         })
 
         setIsRedsTurn(true)
-        if (checkWinner(updatedCells2)) {
+        if (checkWinner(updatedCells2, isRedsTurn)) {
           handleWin(updatedCells2)
         }
       }, 500)
@@ -271,7 +271,7 @@ export default function Game() {
 
   function handleWin(cells) {
     setIsGameover(true)
-    const winner = checkWinner(cells)
+    const winner = checkWinner(cells, isRedsTurn)
 
     setBoardState(winner.cellsInName)
 
@@ -288,14 +288,14 @@ export default function Game() {
       const newMes = {
         isRedsTurn,
         message: '',
-        winnerMessage: 'Team red won the game!',
+        winnerMessage: 'Team red won!',
       }
       setMessage(newMes)
     } else {
       setMessage({
         isRedsTurn,
         message: '',
-        winnerMessage: 'Team blue won the game!',
+        winnerMessage: 'Team blue won!',
       })
     }
   }
@@ -314,6 +314,7 @@ export default function Game() {
             selectedFigure={selectedFigure}
             handleSelectFigure={handleSelectFigure}
             isRedsTurn={isRedsTurn}
+            isGameover={isGameover}
             redFigures={redFigures}
             blueFigures={blueFigures}
           ></Figures>
@@ -332,6 +333,7 @@ export default function Game() {
             selectedFigure={selectedFigure}
             isRedsTurn={isRedsTurn}
             redFigures={redFigures}
+            isGameover={isGameover}
             blueFigures={blueFigures}
             team={'blue'}
           ></Figures>

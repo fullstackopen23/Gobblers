@@ -13,6 +13,7 @@ export default function Figure({
   selectedFigure,
   isRedsTurn,
   showAnimation,
+  isGameOver,
 }) {
   let variants
   variants = showAnimation

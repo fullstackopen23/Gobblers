@@ -7,6 +7,7 @@ export default function Figures({
   redFigures,
   selectedFigure,
   blueFigures,
+  isGameOver,
 }) {
   const figures = team === 'red' ? redFigures : blueFigures
   const figuresOnField = figures.filter((f) => f.on)
